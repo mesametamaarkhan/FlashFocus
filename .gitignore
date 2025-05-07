@@ -1,0 +1,81 @@
+# General
+*.log
+*.bak
+*.swp
+*.DS_Store
+*.idea/
+*.iml
+*.suo
+*.user
+*.vscode/
+*.cache
+*.tmp
+temp/
+tmp/
+.idea
+.vscode
+
+# Java / Spring Boot (Backend)
+/backend/target/
+/backend/.mvn/
+/backend/mvnw
+/backend/mvnw.cmd
+/backend/.classpath
+/backend/.project
+/backend/.settings/
+/backend/.springBeans
+/backend/*.log
+/backend/*.pid
+
+# Sensitive Files (Backend)
+/backend/src/main/resources/firebase/serviceAccountKey.json
+/backend/src/main/resources/application.properties
+/backend/src/main/resources/application-*.properties
+/backend/secret.properties
+/backend/uploads/  # Local file upload directory
+
+# React Native / Expo (Frontend)
+/mobile/node_modules/
+/mobile/.expo/
+/mobile/.expo-shared/
+/mobile/build/
+/mobile/dist/
+/mobile/assets/*.png.bak
+/mobile/assets/*.jpg.bak
+/mobile/.env
+/mobile/.env.local
+/mobile/.env.development
+/mobile/.env.production
+
+# Build Outputs
+/mobile/android/
+/mobile/ios/
+/mobile/web-build/
+/mobile/*.apk
+/mobile/*.aab
+/mobile/*.ipa
+
+# Dependency Caches
+/mobile/yarn-error.log
+/mobile/npm-debug.log
+/mobile/package-lock.json  # If using npm (optional, keep if using yarn)
+
+# Firebase Config (Frontend)
+/mobile/google-services.json
+/mobile/GoogleService-Info.plist
+
+# Miscellaneous
+*.DS_Store
+*.bak
+*.swp
+*.lock
+*.zip
+*.tar.gz
+*.rar
+
+# Local Environment Files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
