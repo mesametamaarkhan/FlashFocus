@@ -3,6 +3,7 @@ package com.flashfocus.flashfocus.controller;
 import com.flashfocus.flashfocus.model.User;
 import com.flashfocus.flashfocus.dto.LoginRequest;
 import com.flashfocus.flashfocus.dto.RegisterRequest;
+import com.flashfocus.flashfocus.dto.UserDTO;
 import com.flashfocus.flashfocus.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -52,8 +53,8 @@ public class UserController {
     }
 
     @GetMapping("/profile/{id}")
-    public ResponseEntity<User> getUserProfile(@PathVariable String id) {
-        Optional<User> user = userService.getUserById(id);
+    public ResponseEntity<UserDTO> getUserProfile(@PathVariable String id) {
+        Optional<UserDTO> user = userService.getUserById(id);
         if (user.isPresent()) {
             return ResponseEntity.ok(user.get());
         } else {

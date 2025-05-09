@@ -3,8 +3,11 @@ package com.flashfocus.flashfocus.service;
 import com.flashfocus.flashfocus.model.User;
 import com.flashfocus.flashfocus.repository.UserRepository;
 import com.flashfocus.flashfocus.dto.RegisterRequest;
+import com.flashfocus.flashfocus.dto.LoginRequest;
+import com.flashfocus.flashfocus.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -45,7 +48,18 @@ public class UserService {
         return Optional.empty(); //user not found or password mismatch
     }
 
-    public Optional<User> getUserById(String id) {
-        return userRepository.findById(id);
+    public Optional<UserDTO> getUserById(String id) {
+        User user = userRepository.findById(id)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    
+        UserDTO dto = new UserDTO(
+            user.getId(),
+            user.getUsername(),
+            user.getEmail(),
+            user.getNotificationPreferences()
+        );
+    
+        return Optional.of(dto);
     }
+    
 }
