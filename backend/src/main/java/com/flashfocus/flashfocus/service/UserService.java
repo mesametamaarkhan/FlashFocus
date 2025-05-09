@@ -24,7 +24,7 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public Optional<User> register(String username, String email, String password) {
+    public Optional<UserDTO> register(String username, String email, String password) {
         if (userRepository.existsByEmail(email) || userRepository.existsByUsername(username)) {
             return Optional.empty();
         }
@@ -35,17 +35,33 @@ public class UserService {
         user.setPasswordHash(passwordEncoder.encode(password));
         user.setCreatedAt(Instant.now());
         user.setNotificationPreferences(new HashMap<>());
+        userRepository.save(user);
+
+        UserDTO userDTO = new UserDTO(
+            user.getId(),
+            user.getUsername(),
+            user.getEmail(),
+            user.getNotificationPreferences()
+        );
     
-        return Optional.of(userRepository.save(user));
+        return Optional.of(userDTO);
     }
     
 
-    public Optional<User> login(String emailOrUsername, String password) {
+    public Optional<UserDTO> login(String emailOrUsername, String password) {
         Optional<User> user = userRepository.findByEmailOrUsername(emailOrUsername, emailOrUsername);
         if (user.isPresent() && passwordEncoder.matches(password, user.get().getPasswordHash())) {
-            return user;
+            User u = user.get();
+            UserDTO dto = new UserDTO(
+                u.getId(),
+                u.getUsername(),
+                u.getEmail(),
+                u.getNotificationPreferences()
+            );
+    
+            return Optional.of(dto);
         }
-        return Optional.empty(); //user not found or password mismatch
+        return Optional.empty();
     }
 
     public Optional<UserDTO> getUserById(String id) {

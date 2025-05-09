@@ -19,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<UserDTO> register(@RequestBody RegisterRequest registerRequest) {
         String username = registerRequest.getUsername();
         String email = registerRequest.getEmail();
         String password = registerRequest.getPassword();
@@ -29,7 +29,7 @@ public class UserController {
             return ResponseEntity.status(400).body(null); // Bad request if passwords do not match
         }
 
-        Optional<User> registeredUser = userService.register(username, email, password);
+        Optional<UserDTO> registeredUser = userService.register(username, email, password);
         if (registeredUser.isPresent()) {
             return ResponseEntity.ok(registeredUser.get());
         }
@@ -39,11 +39,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<User> login(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<UserDTO> login(@RequestBody LoginRequest loginRequest) {
         String emailOrUsername = loginRequest.getEmailOrUsername();
         String password = loginRequest.getPassword();
 
-        Optional<User> loggedInUser = userService.login(emailOrUsername, password);
+        Optional<UserDTO> loggedInUser = userService.login(emailOrUsername, password);
         if (loggedInUser.isPresent()) {
             return ResponseEntity.ok(loggedInUser.get());
         } 
