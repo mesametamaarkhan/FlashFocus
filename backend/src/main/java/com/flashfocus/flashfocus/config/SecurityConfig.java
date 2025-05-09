@@ -16,13 +16,14 @@ public class SecurityConfig {
         http
             .csrf().disable()
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/users/register", "/api/users/login").permitAll()
+                .requestMatchers("/api/users/**").permitAll()  // <-- permits all under /api/users
                 .anyRequest().authenticated()
             )
-            .httpBasic(Customizer.withDefaults()); // Optional, you can also use formLogin()
-
+            .httpBasic(Customizer.withDefaults());
+    
         return http.build();
     }
+    
 
     @Bean
     public PasswordEncoder passwordEncoder() {
