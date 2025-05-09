@@ -61,4 +61,14 @@ public class UserController {
             return ResponseEntity.status(404).body(null); // Not found
         }
     }
+
+    @PutMapping("/profile/{id}")
+    public ResponseEntity<UserDTO> updateUserProfile(@PathVariable String id, @RequestBody UserDTO userDTO) {
+        Optional<UserDTO> updatedUser = userService.updateUserProfile(id, userDTO);
+        if (updatedUser.isPresent()) {
+            return ResponseEntity.ok(updatedUser.get());
+        } else {
+            return ResponseEntity.status(404).body(null); // Not found
+        }
+    }
 }

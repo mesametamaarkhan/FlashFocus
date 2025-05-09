@@ -62,4 +62,27 @@ public class UserService {
         return Optional.of(dto);
     }
     
+    public Optional<UserDTO> updateUserProfile(String id, UserDTO userDTO) {
+        Optional<User> userOptional = userRepository.findById(id);
+    
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setUsername(userDTO.getUsername());
+            user.setEmail(userDTO.getEmail());
+            user.setNotificationPreferences(userDTO.getNotificationPreferences());
+    
+            User updatedUser = userRepository.save(user);
+            UserDTO updatedDTO = new UserDTO(
+                updatedUser.getId(),
+                updatedUser.getUsername(),
+                updatedUser.getEmail(),
+                updatedUser.getNotificationPreferences()
+            );
+    
+            return Optional.of(updatedDTO);
+        }
+    
+        return Optional.empty();
+    }
+    
 }
